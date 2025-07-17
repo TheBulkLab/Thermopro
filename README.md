@@ -253,8 +253,6 @@ Show profile plot? (y/n): y
 
 Follow the prompts to enter your desired `target_temperature`, `exposure_time`, and `material_thickness`. The system will then output a detailed report, including the recommended dryer type, thermal parameters, and a comprehensive FMEA analysis. You'll also have the option to view a plot of the generated thermal profile.
 
-```
-
 ## 🤝 Contributing
 
 Contributions are welcome\! If you have suggestions for improvements, new features, or bug fixes, please open an issue or submit a pull request.
