@@ -14,34 +14,24 @@ The **Thermal Processing Profile Optimizer (ThermoPro)** is a machine learning-p
   * **Clear Reporting & Visualization**: Presents results in easy-to-understand reports and offers a graphical representation of the thermal profile.
   * **Persistent Models**: Saves trained machine learning models, so you don't need to retrain them every time.
 
-## 🚀 Getting Started
+## ⚙️ How it Works
 
-### Prerequisites
+The `ThermalProcessingProfileOptimizer` class encapsulates the entire workflow:
 
-  * Python 3.x
-  * `scikit-learn`
-  * `numpy`
-  * `matplotlib`
-  * `joblib`
-
-You can install the necessary libraries using pip:
-
-```bash
-pip install scikit-learn numpy matplotlib joblib
-```
-
-### Installation
-
-1.  **Clone the repository:**
-    ```bash
-    git clone https://github.com/yourusername/thermopro.git
-    cd thermopro
-    ```
-2.  **Run the application:**
-    ```bash
-    python your_main_script_name.py
-    ```
-    (Replace `your_main_script_name.py` with the actual name of your Python file, likely `main.py` if you've packaged it as such, or directly the file containing the `ThermalProcessingProfileOptimizer` class and `main` function.)
+1.  **Data Generation**: `generate_synthetic_data` and `generate_parameter_targets` create realistic simulated data for training.
+2.  **Model Training**:
+      * A **Random Forest Classifier** is trained to predict the optimal dryer type (Batch or Belt) based on input features.
+      * Separate **Linear Regression** models are trained for each dryer type and each thermal parameter (heating rate, cooling rate, hold time factor, peak temperature adjustment, and productivity).
+3.  **Model Persistence**: Trained models (classifier, scaler, encoder, and regression models) are saved to disk using `joblib` for reusability.
+4.  **Prediction**: The `predict_thermal_profile` method takes new input parameters, scales them, predicts the dryer type, and then uses the appropriate regression models to predict the thermal parameters and productivity.
+5.  **Thermal Profile Generation**: `generate_thermal_profile` constructs a time-temperature profile based on the predicted thermal parameters.
+6.  **Productivity Adjustment**: The `adjust_for_desired_productivity` function intelligently modifies the heating rate, cooling rate, and hold time factor to meet a user-specified productivity target.
+7.  **FMEA Analysis**:
+      * The `initialize_fmea_database` sets up a predefined database of common failure modes, their effects, causes, current controls, and recommended actions.
+      * `perform_fmea_analysis` calculates the **Risk Priority Number (RPN)** ($RPN = \\text{Severity} \\times \\text{Occurrence} \\times \\text{Detection}$) for each failure mode, adjusting occurrence and severity based on the predicted thermal parameters (e.g., higher heating rates might increase occurrence of "Overheating").
+      * `get_risk_level` classifies the risk based on the RPN.
+      * `generate_fmea_action_plan` creates a prioritized action plan based on the RPNs.
+8.  **Reporting & Plotting**: `print_thermal_report`, `print_fmea_report`, `print_action_plan`, and `plot_thermal_profile` provide comprehensive output and visualizations.
 
 ### Usage
 
@@ -262,25 +252,6 @@ Show profile plot? (y/n): y
 ```
 
 Follow the prompts to enter your desired `target_temperature`, `exposure_time`, and `material_thickness`. The system will then output a detailed report, including the recommended dryer type, thermal parameters, and a comprehensive FMEA analysis. You'll also have the option to view a plot of the generated thermal profile.
-
-## ⚙️ How it Works
-
-The `ThermalProcessingProfileOptimizer` class encapsulates the entire workflow:
-
-1.  **Data Generation**: `generate_synthetic_data` and `generate_parameter_targets` create realistic simulated data for training.
-2.  **Model Training**:
-      * A **Random Forest Classifier** is trained to predict the optimal dryer type (Batch or Belt) based on input features.
-      * Separate **Linear Regression** models are trained for each dryer type and each thermal parameter (heating rate, cooling rate, hold time factor, peak temperature adjustment, and productivity).
-3.  **Model Persistence**: Trained models (classifier, scaler, encoder, and regression models) are saved to disk using `joblib` for reusability.
-4.  **Prediction**: The `predict_thermal_profile` method takes new input parameters, scales them, predicts the dryer type, and then uses the appropriate regression models to predict the thermal parameters and productivity.
-5.  **Thermal Profile Generation**: `generate_thermal_profile` constructs a time-temperature profile based on the predicted thermal parameters.
-6.  **Productivity Adjustment**: The `adjust_for_desired_productivity` function intelligently modifies the heating rate, cooling rate, and hold time factor to meet a user-specified productivity target.
-7.  **FMEA Analysis**:
-      * The `initialize_fmea_database` sets up a predefined database of common failure modes, their effects, causes, current controls, and recommended actions.
-      * `perform_fmea_analysis` calculates the **Risk Priority Number (RPN)** ($RPN = \\text{Severity} \\times \\text{Occurrence} \\times \\text{Detection}$) for each failure mode, adjusting occurrence and severity based on the predicted thermal parameters (e.g., higher heating rates might increase occurrence of "Overheating").
-      * `get_risk_level` classifies the risk based on the RPN.
-      * `generate_fmea_action_plan` creates a prioritized action plan based on the RPNs.
-8.  **Reporting & Plotting**: `print_thermal_report`, `print_fmea_report`, `print_action_plan`, and `plot_thermal_profile` provide comprehensive output and visualizations.
 
 ```
 
