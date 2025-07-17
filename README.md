@@ -2,7 +2,7 @@ This sounds like a great project\! Here's a GitHub README based on the provided 
 
 -----
 
-# Thermal Processing Profile Optimizer (ThermoPro) 🌡️📊
+## Thermal Processing Profile Optimizer (ThermoPro)
 
 The **Thermal Processing Profile Optimizer (ThermoPro)** is a machine learning-powered system designed to predict optimal drying temperature profiles and productivity based on various input process parameters. It also incorporates a crucial **Failure Mode and Effects Analysis (FMEA)** module to assess and mitigate potential risks associated with the recommended thermal profiles, even offering productivity adjustments and re-analysis of FMEA to ensure a robust and safe drying process.
 
@@ -286,18 +286,6 @@ The `ThermalProcessingProfileOptimizer` class encapsulates the entire workflow:
       * `generate_fmea_action_plan` creates a prioritized action plan based on the RPNs.
 8.  **Reporting & Plotting**: `print_thermal_report`, `print_fmea_report`, `print_action_plan`, and `plot_thermal_profile` provide comprehensive output and visualizations.
 
-## 📂 Project Structure
-
-```
-.
-├── thermopro_models/       # Directory to store trained models
-│   ├── dryer_type_classifier.pkl
-│   ├── dryer_label_encoder.pkl
-│   ├── thermal_scaler.pkl
-│   ├── Batch_Dryer_heating_rate_model.pkl
-│   ├── Batch_Dryer_cooling_rate_model.pkl
-│   ├── ... (other regression models for Batch_Dryer and Belt_Dryer)
-└── your_main_script_name.py # The main Python script
 ```
 
 ## 🤝 Contributing
